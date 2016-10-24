@@ -42,3 +42,6 @@ dependencies {
 
 
 }
+task helloWorld{
+    println('Hello World from Gradle Task')
+}
