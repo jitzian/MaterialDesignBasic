@@ -135,7 +135,6 @@ public class FragmentDrawer extends Fragment {
 
     public static interface ClickListener {
         public void onClick(View view, int position);
-
         public void onLongClick(View view, int position);
     }
 
