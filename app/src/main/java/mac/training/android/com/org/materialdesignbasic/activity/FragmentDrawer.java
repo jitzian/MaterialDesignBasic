@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -31,6 +32,7 @@ import mac.training.android.com.org.materialdesignbasic.model.NavDrawerItem;
  */
 public class FragmentDrawer extends Fragment {
     private static final String TAG = FragmentDrawer.class.getName();
+    private View rootView;
 
     private RecyclerView recyclerView;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -64,7 +66,7 @@ public class FragmentDrawer extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d(TAG, "onCreate");
         // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
     }
@@ -73,8 +75,10 @@ public class FragmentDrawer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+        Log.d(TAG, "onCreateView");
+
+        rootView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.drawerList);
 
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
@@ -92,7 +96,7 @@ public class FragmentDrawer extends Fragment {
             }
         }));
 
-        return layout;
+        return rootView;
     }
 
 

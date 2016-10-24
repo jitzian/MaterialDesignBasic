@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import mac.training.android.com.org.materialdesignbasic.R;
+import mac.training.android.com.org.materialdesignbasic.fragments.DemoBindFragment;
 import mac.training.android.com.org.materialdesignbasic.fragments.FriendsFragment;
 import mac.training.android.com.org.materialdesignbasic.fragments.HomeFragment;
 import mac.training.android.com.org.materialdesignbasic.fragments.MessagesFragment;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     private void displayView(int position) {
+        Log.d(TAG, "displayView");
         Fragment fragment = null;
         String title = getString(R.string.app_name);
         switch (position) {
@@ -85,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             case 2:
                 fragment = new MessagesFragment();
                 title = getString(R.string.title_messages);
+                break;
+            case 3:
+                fragment = new DemoBindFragment();
+                title = getString(R.string.title_data_binding);
                 break;
             default:
                 break;
