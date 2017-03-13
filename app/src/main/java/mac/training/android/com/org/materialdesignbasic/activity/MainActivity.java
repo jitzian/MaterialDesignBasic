@@ -1,5 +1,6 @@
 package mac.training.android.com.org.materialdesignbasic.activity;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,8 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.security.KeyStore;
+
+import javax.crypto.KeyGenerator;
+
 import mac.training.android.com.org.materialdesignbasic.R;
 import mac.training.android.com.org.materialdesignbasic.fragments.DemoBindFragment;
+import mac.training.android.com.org.materialdesignbasic.fragments.FingerPrintFragment;
 import mac.training.android.com.org.materialdesignbasic.fragments.FriendsFragment;
 import mac.training.android.com.org.materialdesignbasic.fragments.HomeFragment;
 import mac.training.android.com.org.materialdesignbasic.fragments.MessagesFragment;
@@ -22,6 +28,17 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private static final String TAG = MainActivity.class.getName();
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
+
+    private static final String DIALOG_FRAGMENT_TAG = "myFragment";
+    private static final String SECRET_MESSAGE = "Very secret message";
+    private static final String KEY_NAME_NOT_INVALIDATED = "key_not_invalidated";
+    static final String DEFAULT_KEY_NAME = "default_key";
+
+    private KeyStore mKeyStore;
+    private KeyGenerator mKeyGenerator;
+    private SharedPreferences mSharedPreferences;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +109,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragment = new DemoBindFragment();
                 title = getString(R.string.title_data_binding);
                 break;
+            case 4:
+                fragment = new FingerPrintFragment();
+                title = getString(R.string.title_finger_print);
+                break;
+
             default:
                 break;
         }
