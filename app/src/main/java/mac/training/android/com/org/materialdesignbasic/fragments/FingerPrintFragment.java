@@ -1,42 +1,14 @@
 package mac.training.android.com.org.materialdesignbasic.fragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.hardware.fingerprint.FingerprintManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyPermanentlyInvalidatedException;
-import android.security.keystore.KeyProperties;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 
 import mac.training.android.com.org.materialdesignbasic.R;
 
@@ -112,7 +84,7 @@ public class FingerPrintFragment extends Fragment {
         purchase_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment.show(getActivity().getFragmentManager(), "");
+                fragment.show(getActivity().getFragmentManager(), "Authorization");
             }
         });
 
@@ -151,11 +123,6 @@ public class FingerPrintFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    /**---------------------------------------------------------------------------------------------
-     * FingerPrint Configuration
-     *--------------------------------------------------------------------------------------------*/
-
 
 
 }

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,9 +52,7 @@ public class FingerprintAuthDialogFragment extends DialogFragment {
 
     private FingerprintManager fingerprintManager;
 
-    TextView message;
-
-
+    private TextView message;
 
     @Nullable
     @Override
@@ -78,17 +75,13 @@ public class FingerprintAuthDialogFragment extends DialogFragment {
 
                 message.setText("Swipe your finger");
                 fph.doAuth(fingerprintManager, cryptoObject);
-
-
             }
             catch(FingerprintException fpe) {
                 // Handle exception
 //                btn.setEnabled(false);
+                Log.d(TAG, fpe.getMessage());
             }
-
         }
-
-
         return rootView;
     }
 
@@ -104,12 +97,13 @@ public class FingerprintAuthDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateDialog");
         return super.onCreateDialog(savedInstanceState);
     }
 
     //--FingerPrint
-
     private boolean checkFinger() {
+        Log.d(TAG, "checkFinger");
 
         // Keyguard Manager
         KeyguardManager keyguardManager = (KeyguardManager) getActivity().getSystemService(KEYGUARD_SERVICE);
@@ -123,28 +117,23 @@ public class FingerprintAuthDialogFragment extends DialogFragment {
                 message.setText("Fingerprint authentication not supported");
                 return false;
             }
-
             if (!fingerprintManager.hasEnrolledFingerprints()) {
                 message.setText("No fingerprint configured.");
                 return false;
             }
-
             if (!keyguardManager.isKeyguardSecure()) {
                 message.setText("Secure lock screen not enabled");
                 return false;
             }
-
         }
         catch(SecurityException se) {
             se.printStackTrace();
         }
-
-
         return true;
-
     }
 
     private void generateKey() throws FingerprintException {
+        Log.d(TAG, "generateKey");
         try {
             // Get the reference to the key store
             keyStore = KeyStore.getInstance("AndroidKeyStore");
@@ -172,14 +161,14 @@ public class FingerprintAuthDialogFragment extends DialogFragment {
                 | InvalidAlgorithmParameterException
                 | CertificateException
                 | IOException exc) {
+            Log.d(TAG, exc.getMessage());
             exc.printStackTrace();
             throw new FingerprintException(exc);
         }
-
-
     }
 
     private Cipher generateCipher() throws FingerprintException {
+        Log.d(TAG, "generateCipher");
         try {
             Cipher cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/"
                     + KeyProperties.BLOCK_MODE_CBC + "/"
@@ -194,17 +183,15 @@ public class FingerprintAuthDialogFragment extends DialogFragment {
                 | InvalidKeyException
                 | UnrecoverableKeyException
                 | KeyStoreException exc) {
+            Log.d(TAG, exc.getMessage());
             exc.printStackTrace();
             throw new FingerprintException(exc);
         }
     }
 
     private class FingerprintException extends Exception {
-
         public FingerprintException(Exception e) {
             super(e);
         }
     }
-
-
 }
